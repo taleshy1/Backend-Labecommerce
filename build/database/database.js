@@ -64,7 +64,7 @@ const createProduct = (id, name, price, description, imageUrl) => {
     };
     if (newProduct) {
         exports.products.push(newProduct);
-        return ("Produto criado com sucesso");
+        return "Produto criado com sucesso";
     }
     else {
         return "Erro na criação do Produto";

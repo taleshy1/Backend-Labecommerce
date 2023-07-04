@@ -1,6 +1,6 @@
 import { Tusers, Tproducts } from "../types/types";
 
-export let users: Array<Tusers> = [
+export const users: Array<Tusers> = [
   {
     id: "u001",
     name: "Fulano",
@@ -17,7 +17,7 @@ export let users: Array<Tusers> = [
   }
 ]
 
-export let products: Array<Tproducts> = [
+export const products: Array<Tproducts> = [
   {
     id: "prod001",
     name: "Mouse gamer",

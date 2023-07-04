@@ -1,9 +1,17 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const database_1 = require("./database/database");
-console.log((0, database_1.createUser)("u003", "Astrodev", "astrodev@email.com", "astrodev99"));
-console.log("Get Users", (0, database_1.getAllUsers)());
-console.log((0, database_1.createProduct)("prod003", "SSD gamer", 349.99, "Acelere seu sistema com velocidades incríveis de leitura e gravação.", "https://picsum.photos/seed/SSD/400"));
-console.log("Get Product", (0, database_1.getAllProducts)());
-console.log("search", (0, database_1.searchProductsByName)("gamer"));
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const api = (0, express_1.default)();
+api.use(express_1.default.json());
+api.use((0, cors_1.default)());
+api.listen(3003, () => {
+    console.log('listening on http://localhost:3003');
+});
+api.get('/ping', (req, res) => {
+    res.send('Pong!');
+});
 //# sourceMappingURL=index.js.map
