@@ -1,13 +1,57 @@
 import { users, products, createUser, getAllUsers, createProduct, getAllProducts, searchProductsByName } from "./database/database";
+import express, { Request, Response } from "express";
+import cors from 'cors'
+import { Tproducts, Tusers } from "./types/types";
 
-// console.log("Users", "\n", users, "\n", "Products", "\n", products);
 
-console.log(createUser("u003", "Astrodev", "astrodev@email.com", "astrodev99"))
+const api = express();
 
-console.log("Get Users", getAllUsers())
+api.use(express.json())
+api.use(cors())
 
-console.log(createProduct("prod003", "SSD gamer", 349.99, "Acelere seu sistema com velocidades incríveis de leitura e gravação.", "https://picsum.photos/seed/SSD/400"))
+api.listen(3003, () => {
+  console.log('listening on http://localhost:3003');
+})
 
-console.log("Get Product", getAllProducts())
+api.get("/users", (req: Request, res: Response) => {
+  res.status(200).send(users)
+})
 
-console.log("search", searchProductsByName("gamer"))
+api.get("/products", (req: Request, res: Response) => {
+  const name = req.query.name as string;
+  const productsFiltered = products.filter(product => product.name?.toLocaleLowerCase().includes(name?.toLocaleLowerCase()))
+  res.status(200).send(productsFiltered.length >= 1 ? productsFiltered : products)
+})
+
+api.post("/users", (req: Request, res: Response) => {
+  const id = req.body.id as string
+  const name = req.body.name as string
+  const email = req.body.email as string
+  const password = req.body.password as string
+  const newUser: Tusers = {
+    id,
+    name,
+    email,
+    password,
+    createdAt: new Date().toISOString()
+  }
+  users.push(newUser)
+  res.status(201).send("Cadastro realizado com sucesso!")
+})
+
+api.post("/products", (req: Request, res: Response) => {
+  const id = req.body.id as string
+  const name = req.body.name as string
+  const price = req.body.price as number
+  const description = req.body.description as string
+  const imageUrl = req.body.imageUrl as string
+  const newProduct: Tproducts = {
+    id,
+    name,
+    price,
+    description,
+    imageUrl,
+  }
+  products.push(newProduct)
+  res.status(201).send("Produto cadastrado com sucesso!")
+})
