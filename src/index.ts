@@ -55,3 +55,45 @@ api.post("/products", (req: Request, res: Response) => {
   products.push(newProduct)
   res.status(201).send("Produto cadastrado com sucesso!")
 })
+
+api.delete("/users/:id", (req: Request, res: Response) => {
+  const id = req.params.id
+  const userToRemove = users.findIndex(user => user.id === id)
+  if (userToRemove >= 0) {
+    users.splice(userToRemove, 1)
+  }
+  res.status(200).send("User apagado com sucesso")
+})
+
+api.delete("/products/:id", (req: Request, res: Response) => {
+  const id = req.params.id
+  const prodToRemove = products.findIndex(product => product.id === id)
+  if (prodToRemove >= 0) {
+    products.splice(prodToRemove, 1)
+  }
+  res.status(200).send("Produto apagado com sucesso")
+})
+
+api.put("/products/:id", (req: Request, res: Response) => {
+  const idOfProduct = req.params.id as string
+
+
+  const newId = req.body.id as string || undefined
+  const newName = req.body.name as string || undefined
+  const newPrice = req.body.price as number || undefined
+  const newDescription = req.body.price as string || undefined
+  const newImageUrl = req.body.imageUrl as string || undefined
+
+  const productToEdit = products.find(product => product.id === idOfProduct)
+
+  if (productToEdit) {
+    productToEdit.id = newId || productToEdit.id
+    productToEdit.name = newName || productToEdit.name
+    productToEdit.price = newPrice || productToEdit.price
+    productToEdit.description = newDescription || productToEdit.description
+    productToEdit.imageUrl = newImageUrl || productToEdit.imageUrl
+  }
+
+  res.status(200).send("Produto atualizado com sucesso")
+
+})
