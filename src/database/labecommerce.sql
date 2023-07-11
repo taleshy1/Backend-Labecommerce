@@ -26,20 +26,22 @@ VALUES (
         'Culano',
         'fulano@gmail.com',
         'senhadofulano123',
-        '2023-07-10 13:19'
+        datetime('now')
     ), (
         'u002',
         'Ciclano',
         'ciclano@gmail.com',
         'senhadociclano123',
-        '2023-07-10 13:20'
+        datetime('now')
     ), (
         'u003',
         'Beltrano',
         'beltrano@gmail.com',
         'senhadobeltrano123',
-        '2023-07-10 13:21'
+        datetime('now')
     );
+
+DROP TABLE users;
 
 -- END OF USERS SECTION
 
@@ -53,6 +55,8 @@ CREATE TABLE
     );
 
 SELECT * FROM products;
+
+SELECT * FROM products WHERE name LIKE '%gamer%';
 
 PRAGMA table_info (products);
 
@@ -78,20 +82,70 @@ VALUES (
         'https://picsum.photos/seed/Teclado%20gamer/400'
     ), (
         'p003',
-        150.00,
         'Mousepad gamer',
+        150.00,
         'Superfície de tecido de baixo atrito, base antiderrapante, tamanho estendido, bordas reforçadas, compatível com sensores ópticos/laser.',
         'https://picsum.photos/seed/Mousepad%20gamer/400'
     ), (
         'p004',
-        3199.99,
         'Monitor',
+        3199.99,
         'Monitor IPS de 240Hz, resolução Full HD, tempo de resposta de 1ms, tecnologia FreeSync/G-Sync, ajuste de altura, cores precisas e amplo ângulo de visão.',
         'https://picsum.photos/seed/Monitor/400'
     ), (
         'p005',
-        1500,
         'Headset gamer',
+        1500,
         'Headset gamer com som surround 7.1, drivers de alta qualidade, microfone retrátil com cancelamento de ruído, conforto ajustável, iluminação RGB, compatibilidade multiplataforma e controles de áudio integrados.',
         'https://picsum.photos/seed/Headset%20gamer/400'
     );
+
+INSERT INTO
+    users (
+        id,
+        name,
+        email,
+        password,
+        created_at
+    )
+VALUES (
+        'u004',
+        'Maria',
+        'maria@gmail.com',
+        'senhadamaria123',
+        datetime('now')
+    );
+
+INSERT INTO
+    products (
+        id,
+        name,
+        price,
+        description,
+        image_url
+    )
+VALUES (
+        'p006',
+        'Microfone de mesa',
+        999.99,
+        'Microfone de mesa compacto e de alta qualidade, ideal para videoconferências, gravações de podcasts e transmissões ao vivo. Possui captação direcional, redução de ruídos e conexão USB plug-and-play. Design elegante, com base estável e ajustável, garantindo uma experiência de áudio imersiva e profissional.',
+        'https://picsum.photos/seed/Headset%20gamer/400'
+    );
+
+SELECT * FROM users;
+
+DELETE FROM users WHERE id = 'u001';
+
+SELECT * FROM products;
+
+SELECT * FROM products WHERE name LIKE '%gamer%';
+
+DELETE FROM products WHERE id = 'p003';
+
+UPDATE products
+SET
+    name = 'Mouse',
+    price = 10.99,
+    description = 'Mouse com sensor óptico',
+    image_url = 'imagem do produto aqui'
+WHERE id = 'p001';
