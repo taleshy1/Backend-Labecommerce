@@ -156,7 +156,7 @@ CREATE TABLE
         buyer TEXT NOT NULL,
         total_price REAL NOT NULL,
         created_at TEXT NOT NULL,
-        FOREIGN KEY (buyer) REFERENCES users(id)
+        FOREIGN KEY (buyer) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 INSERT INTO
@@ -166,8 +166,7 @@ INSERT INTO
         total_price,
         created_at
     )
-VALUES
-(
+VALUES (
         'purc001',
         'u001',
         12938.98,
@@ -202,3 +201,29 @@ SELECT
     purchases.created_at AS created_at
 FROM purchases
     JOIN users ON users.id = buyer;
+
+CREATE TABLE
+    purchases_products (
+        purchase_id TEXT NOT NULL,
+        product_id TEXT NOT NULL,
+        quantity INTEGER NOT NULL,
+        FOREIGN KEY (product_id) REFERENCES products (id) ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY (purchase_id) REFERENCES purchases (id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+INSERT INTO
+    purchases_products (
+        purchase_id,
+        product_id,
+        quantity
+    )
+VALUES ('purc001', 'p001', 5), ('purc002', 'p002', 2), ('purc003', 'p003', 6);
+
+--DROP TABLE purchases_products;
+
+SELECT *
+FROM purchases_products
+    INNER JOIN purchases ON purchase_id = purchases.id
+    INNER JOIN products ON product_id = products.id;
+
+SELECT * FROM purchases_products;
