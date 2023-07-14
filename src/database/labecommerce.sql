@@ -1,4 +1,4 @@
--- Active: 1689005311322@@127.0.0.1@3306
+-- Active: 1689369478465@@127.0.0.1@3306
 
 CREATE TABLE
     users (
@@ -149,3 +149,56 @@ SET
     description = 'Mouse com sensor óptico',
     image_url = 'imagem do produto aqui'
 WHERE id = 'p001';
+
+CREATE TABLE
+    purchases (
+        id TEXT PRIMARY KEY UNIQUE NOT NULL,
+        buyer TEXT NOT NULL,
+        total_price REAL NOT NULL,
+        created_at TEXT NOT NULL,
+        FOREIGN KEY (buyer) REFERENCES users(id)
+    );
+
+INSERT INTO
+    purchases (
+        id,
+        buyer,
+        total_price,
+        created_at
+    )
+VALUES
+(
+        'purc001',
+        'u001',
+        12938.98,
+        datetime('now')
+    ), (
+        'purc002',
+        'u002',
+        1123.00,
+        datetime('now')
+    ), (
+        'purc003',
+        'u003',
+        999.99,
+        datetime('now')
+    ), (
+        'purc004',
+        'u004',
+        10.80,
+        datetime('now')
+    );
+
+SELECT * FROM purchases;
+
+UPDATE purchases SET total_price = 199.99 WHERE id = 'purc004';
+
+SELECT
+    purchases.id AS purchase_id,
+    purchases.buyer AS buyer_id,
+    users.name AS buyer_name,
+    users.email AS email,
+    purchases.total_price AS total_price,
+    purchases.created_at AS created_at
+FROM purchases
+    JOIN users ON users.id = buyer;
