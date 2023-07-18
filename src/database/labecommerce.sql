@@ -198,7 +198,7 @@ SELECT
     users.name AS buyer_name,
     users.email AS email,
     purchases.total_price AS total_price,
-    purchases.created_at AS created_at
+    purchases.created_at AS created_at,
 FROM purchases
     JOIN users ON users.id = buyer;
 
@@ -207,8 +207,8 @@ CREATE TABLE
         purchase_id TEXT NOT NULL,
         product_id TEXT NOT NULL,
         quantity INTEGER NOT NULL,
-        FOREIGN KEY (product_id) REFERENCES products (id) ON UPDATE CASCADE ON DELETE CASCADE,
-        FOREIGN KEY (purchase_id) REFERENCES purchases (id) ON UPDATE CASCADE ON DELETE CASCADE
+        FOREIGN KEY (purchase_id) REFERENCES purchases(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 INSERT INTO
@@ -217,9 +217,7 @@ INSERT INTO
         product_id,
         quantity
     )
-VALUES ('purc001', 'p001', 5), ('purc002', 'p002', 2), ('purc003', 'p003', 6);
-
---DROP TABLE purchases_products;
+VALUES ('purc001', 'prod001', 5), ('purc002', 'prod002', 2), ('purc003', 'prod003', 6);
 
 SELECT *
 FROM purchases_products
@@ -228,4 +226,8 @@ FROM purchases_products
 
 SELECT * FROM purchases_products;
 
-UPDATE products SET id = 'prod009' WHERE id = 'prod00;' 
+UPDATE products SET id = 'prod009' WHERE id = 'prod00;' ;
+
+SELECT * FROM purchases;
+
+SELECT * FROM purchases_products;
