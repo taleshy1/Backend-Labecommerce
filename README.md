@@ -1,6 +1,6 @@
 <div align="center">
   
-# Backend-Labecommerce - API
+# Labecommerce-backend API
 </div>
 
 <div align="center">
